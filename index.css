@@ -1,0 +1,85 @@
+#mine {
+    margin: 50px auto;
+}
+.level {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.level button {
+    padding: 5px 15px;
+    background-color: cornflowerblue;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+.level button.active {
+    background-color: #00abff;
+}
+.info {
+    margin-top: 10px;
+    text-align: center;
+}
+table {
+    border-spacing: 1px;
+    background: #929196;
+    margin: 0 auto;
+}
+td {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    background: #ccc;
+    border: 2px solid;
+    border-color: #fff #a1a1a1 #a1a1a1 #fff;
+
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+}
+td.zero {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+}
+td.one {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #0332fe;
+}
+td.two {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #019f02;
+}
+td.three {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #ff2600;
+}
+td.four {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #93208f;
+}
+td.five {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #019f02;
+}
+td.six {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #ff3fff;
+}
+td.seven {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #3fffbf;
+}
+td.eight {
+    border-color: #D9D9D9;
+    background: #D9D9D9;
+    color: #22ee0f;
+}
+
