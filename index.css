@@ -82,4 +82,11 @@ td.eight {
     background: #D9D9D9;
     color: #22ee0f;
 }
-
+.mine {
+    background: #d9d9d9 url(./mine.png) no-repeat center;
+    background-size: cover;
+}
+.flag {
+    background: #ccc url(./flag.png) no-repeat center;
+    background-size: cover;
+}

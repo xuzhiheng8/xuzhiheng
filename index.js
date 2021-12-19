@@ -121,3 +121,138 @@ Mine.prototype.getAround = function(square) {
     }
     return result;
 };
+
+
+Mine.prototype.updateNum = function() {
+    for (let i = 0; i < this.tr; i++) {
+        for (let j = 0; j < this.td; j++) {
+           
+            if (this.squares[i][j].type == 'number') {
+                continue;
+            }
+
+            let num = this.getAround(this.squares[i][j]); 
+
+            for (let k = 0; k < num.length; k++) {
+                this.squares[num[k][0]][num[k][1]].value += 1;
+            }
+        }
+    }
+}
+
+
+Mine.prototype.play = function(ev, obj) {
+    let self = this;
+    if (ev.which == 1 && obj.className != 'flag') { 
+
+        let curSquare = this.squares[obj.pos[0]][obj.pos[1]];
+        let cl = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
+        if (curSquare.type == 'number') {
+          
+
+            obj.innerHTML = curSquare.value;
+            obj.className = cl[curSquare.value];
+
+            if (curSquare.value == 0) {
+          
+                obj.innerHTML = ''; 
+                function getAllZero(square) {
+                    let around = self.getAround(square); 
+
+                    for (let i = 0; i < around.length; i++) {
+                        let x = around[i][0]; 
+                        let y = around[i][1]; 
+
+                        self.tds[x][y].className = cl[self.squares[x][y].value];
+
+                        if (self.squares[x][y].value == 0) {
+                          
+                            if (!self.tds[x][y].check) {
+                                self.tds[x][y].check = true;
+                                getAllZero(self.squares[x][y]);
+                            }
+                        } else {
+                      
+                            self.tds[x][y].innerHTML = self.squares[x][y].value;
+                        }
+                    }
+                }
+                getAllZero(curSquare);
+            }
+        } else {
+            this.gameOver(obj);
+        }
+    }
+    if (ev.which == 3) {
+   
+        if (obj.className && obj.className != 'flag') {
+            return;
+        }
+        obj.className = obj.className == 'flag' ? '' : 'flag';
+
+        if (this.squares[obj.pos[0]][obj.pos[1]].type == 'mine') {
+            this.allRight = true;
+        } else {
+            this.allRight = false;
+        }
+        if (obj.className == 'flag') {
+            this.mineNumDom.innerHTML = --this.surplusMine;
+        } else {
+            this.mineNumDom.innerHTML = ++this.surplusMine;
+        }
+        if (this.surplusMine == 0) {
+  
+            if (this.allRight) {
+                alert('恭喜你,游戏通过');
+            } else {
+                alert('恭喜你,游戏失败');
+                this.gameOver();
+            }
+        }
+
+    }
+};
+
+
+Mine.prototype.gameOver = function(clickTd) {
+
+    for (let i = 0; i < this.tr; i++) {
+        for (let j = 0; j < this.td; j++) {
+            if (this.squares[i][j].type == 'mine') {
+                this.tds[i][j].className = 'mine';
+            }
+
+            this.tds[i][j].onmousedown = null;
+        }
+    }
+
+    if (clickTd) {
+        clickTd.style.backgroundColor = '#f00';
+    }
+
+
+}
+
+let btns = document.querySelectorAll('.level button');
+let mine = null;
+let ln = 0;
+let arr = [
+    [9, 9, 10],
+    [16, 16, 40],
+    [28, 28, 90]
+];
+
+for(let i =0; i < btns.length-1; i ++) {
+    btns[i].onclick = function() {
+        btns[ln].className = '';
+        this.className = 'active';
+
+        mine = new Mine(...arr[i]);
+        mine.init();
+        ln = i;
+    }
+}
+btns[0].onclick();  
+btns[3].onclick = function () {
+    mine.init();
+}
